@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="SpeechEE: A Novel Benchmark for Speech Event Extraction">
+    <meta name="keywords" content="Information Extraction, Event Extraction, Speech Modeling, Spoken Language Understanding">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpeechEE</title> 
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-PYVRSFMDRL');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <link rel="stylesheet" href="./static/css/index-gradio.css">
+    <link rel="stylesheet" href="./static/css/live_theme.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <!-- <script src="./static/js/index.js"></script> -->
+</head>
+<body>
+
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title"
+                        style="display: flex;flex-direction: row;align-items: center;justify-content: center;margin-bottom: 5px;">SpeechEE:</h1>
+                    <h1 class="title is-2 publication-title">A Novel Benchmark for Speech Event Extraction</h1>
+                    <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a>Bin Wang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a>Meishan Zhang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a>Hao Fei</a><sup>2*</sup>,
+            </span>
+
+            <span class="author-block">
+                <a>Yu Zhao</a><sup>3</sup>,</span>
+
+                <span class="author-block">
+                    <a>Bobo Li</a><sup>4</sup>,</span>
+
+                    <span class="author-block">
+                        <a>Shengqiong Wu</a><sup>2</sup>,</span>
+
+                        <span class="author-block">
+                            <a>Wei Ji</a><sup>2</sup>,</span>
+
+                            <span class="author-block">
+                                <a>Min Zhang</a><sup>1</sup></span>
+
+
+
+
+
+            
+                    </div>
+
+
+              
+
+
+
+
+
+
+
+                    <div class="is-size-5 publication-authors" style="margin-top: 10px;">
+                        <span class="author-block"><sup>1</sup>Harbin Institute of Technology (Shenzhen)</span>
+                        <span class="author-block"><sup>2</sup>National University of Singapore</span>
+                    </div>
+
+                    
+                    <div class="is-size-5 publication-authors" style="margin-top: 10px;">
+                        <span class="author-block"><sup>3</sup>Tianjin University</span>
+                        <span class="author-block"><sup>4</sup>Wuhan University</span>
+                    </div>
+
+                    
+
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block" style="font-size: 15px;">(<sup>*</sup>Correspondence)</span>
+                    </div>
+
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+                            <!-- PDF Link. -->
+                            <span class="link-block">
+                <a href="paper url"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+                            
+
+                            <!-- Code Link. -->
+                            <span class="link-block">
+                <a href="https://github.com/SpeechEE/SpeechEE"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+
+
+                            <span class="link-block">
+                <a href="https://github.com/SpeechEE/SpeechEE" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fa fa-database"></i>
+                  </span>
+                  <span>Dataset</span>
+                  </a>
+              </span>
+
+                            <!-- Video Link. -->
+                            <span class="link-block">
+                <a href="video url"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-2">Abstract</h2>
+                <div class="content has-text-justified">
+                    <p>
+                        Event extraction (EE) is a critical direction in the field of information extraction, laying an important foundation for the construction of structured knowledge bases.
+EE from text has received ample research and attention for years, yet there can be numerous real-world applications that require direct information acquisition from speech signals, online meeting minutes, interview summaries, press releases, etc.
+While EE from speech has remained under-explored, this paper fills the gap by pioneering a \textbf{SpeechEE}, defined as detecting the event predicates and arguments from a given audio speech.
+To benchmark the SpeechEE task, we first construct a large-scale high-quality dataset.
+Based on textual EE datasets under the sentence, document, and dialogue scenarios, we convert texts into speeches through both manual real-person narration and automatic synthesis, empowering the data with diverse scenarios, languages, domains, ambiences, and speaker styles.
+Further, to effectively address the key challenges in the task, we tailor an E2E SpeechEE system based on the encoder-decoder architecture, where a novel Shrinking Unit module and a retrieval-aided decoding mechanism are devised.
+Extensive experimental results on all SpeechEE subsets demonstrate the efficacy of the proposed model, offering a strong baseline for the task. 
+At last, being the first work on this topic, we shed light on key directions for future research.
+                        To be continued...
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--/ Abstract. -->
+
+        <br>
+    </div>
+</section>
+
+
+
+
+
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="content">
+                    <p style="text-align: center;">
+                        The webpage is built based on <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
