@@ -103,7 +103,10 @@
                         <span class="author-block"><sup>4</sup>Wuhan University</span>
                     </div>
 
-                    
+                    <br>
+                    <span class="author-block" style="font-size: 20px;">
+                        Accepted by ACM MM 2024 <span style="color: blue; font-weight: bold;">(Poster)</span>
+                    </span><br>
 
                     <div class="is-size-5 publication-authors">
                         <span class="author-block" style="font-size: 15px;">(<sup>*</sup>Correspondence)</span>
@@ -113,7 +116,7 @@
                         <div class="publication-links">
                             <!-- PDF Link. -->
                             <span class="link-block">
-                <a href="paper url"
+                <a href="https://arxiv.org/abs/2408.09462"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -181,13 +184,13 @@
                     <p>
                         Event extraction (EE) is a critical direction in the field of information extraction, laying an important foundation for the construction of structured knowledge bases.
 EE from text has received ample research and attention for years, yet there can be numerous real-world applications that require direct information acquisition from speech signals, online meeting minutes, interview summaries, press releases, etc.
-While EE from speech has remained under-explored, this paper fills the gap by pioneering a \textbf{SpeechEE}, defined as detecting the event predicates and arguments from a given audio speech.
+While EE from speech has remained under-explored, this paper fills the gap by pioneering a <b>SpeechEE</b>, defined as detecting the event predicates and arguments from a given audio speech.
 To benchmark the SpeechEE task, we first construct a large-scale high-quality dataset.
 Based on textual EE datasets under the sentence, document, and dialogue scenarios, we convert texts into speeches through both manual real-person narration and automatic synthesis, empowering the data with diverse scenarios, languages, domains, ambiences, and speaker styles.
 Further, to effectively address the key challenges in the task, we tailor an E2E SpeechEE system based on the encoder-decoder architecture, where a novel Shrinking Unit module and a retrieval-aided decoding mechanism are devised.
 Extensive experimental results on all SpeechEE subsets demonstrate the efficacy of the proposed model, offering a strong baseline for the task. 
 At last, being the first work on this topic, we shed light on key directions for future research.
-                        To be continued...
+                    
                     </p>
                 </div>
             </div>
@@ -197,6 +200,282 @@ At last, being the first work on this topic, we shed light on key directions for
         <br>
     </div>
 </section>
+
+
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+
+        <div class="columns is-centered has-text-centered">
+            <h2 class="title is-2">Benchmark Construction</h2>
+            <br>
+        </div>
+
+        <!-- Dataset -->
+        <div class="columns is-centered">
+            <div class="column is-full-width">
+                <div class="content has-text-justified">
+                    <p>
+                        We proposed a novel large-scale benchmark dataset for the SpeechEE task, sourced from eight classical text event extraction datasets that are widely used and adhere to strict standards. The dataset was constructed through both manual recording and system synthesis methods, resulting in a large-scale, high-quality benchmark dataset that spans multiple scenarios, domains, languages, styles, and backgrounds, as illustrated in Figure 1.
+                    
+                    <ul>
+                        <li>
+                            Multiple Scenarios: The dataset includes sentence-level event extraction, document-level event extraction, and dialogue-level event extraction, covering three different task scenarios.
+                        
+                        </li>
+
+                        <li>
+
+                            Multiple Domains: The data spans various fields, including news, medicine, cybersecurity, bioscience, and film.
+                        </li>
+                            
+                        
+                        <li>
+                            Multiple Languages: It involves two languages, with six English subsets and two Chinese subsets.
+                        
+                        </li>
+
+                        <li>
+                            Multiple Styles: It features a variety of speaker styles, including different ages, genders, voice tones, and intonations.
+                        
+                        </li>
+                            
+                        <li>
+                            Multiple Backgrounds: The speech settings include not only quiet environments but also ten different noise backgrounds to better simulate real-world speech event extraction scenarios.
+                    
+                        </li>
+                    </ul>
+                    </p>
+                    <img class="columns is-centered has-text-centered" src="./static/images/dataset_feature.png" alt="Teaser" width="80%"
+                         style="margin:0 auto">
+                    <br>
+                    <figcaption>
+                        <p style="text-align: center; color: #061E61;">
+                            <b>Figure 1:</b> Key characteristics of our SpeechEE dataset.
+                        </p>
+                    </figcaption>
+
+                    <br>
+
+                    <p>
+                        
+                    Due to the strict environmental requirements and high costs associated with manually recording speech data, we supplemented the manually recorded speech dataset by leveraging existing high-quality open-source Text-to-Speech (TTS) frameworks, such as Bark and edge-tts, to augment the training data. 
+                    This approach involved synthesizing speech data based on textual event extraction datasets. 
+                    Finally, the manually recorded and system-synthesized speech data underwent post-processing screening and cross-validation to ensure strict quality control. 
+                    As a result, a large-scale SpeechEE benchmark dataset was created, as shown in Figure 2. 
+                    This benchmark dataset provides robust support for evaluating the performance of SpeechEE models.
+
+                    </p>
+
+                    <img class="columns is-centered has-text-centered" src="./static/images/data_statistics.png" alt="Teaser" width="80%"
+                         style="margin:0 auto">
+                    <br>
+                    <figcaption>
+                        <p style="text-align: center; color: #061E61;">
+                            <b>Figure 2:</b> Statistics of the SpeechEE dataset. 
+                            In the brackets are the splits of train/develop/test sets.
+                        </p>
+                    </figcaption>
+
+                    <br>
+
+
+                </div>
+
+                
+
+            </div>
+        </div>
+
+
+
+    </div>
+</section>
+
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+
+        <div class="columns is-centered has-text-centered">
+            <h2 class="title is-2">Architecture</h2>
+            <br>
+        </div>
+
+        <div class="columns is-centered">
+            <div class="column is-full-width">
+
+
+
+                <p>
+                    We introduce two methods to address SpeechEE, including pipeline SpeechEE and E2E SpeechEE. 
+                    The pipeline SpeechEE is a two-step method that firstly uses ASR system to obtain the transcripts of input speech and then uses textual EE model to extract event records from transcripts.
+                    We then propose an E2E SpeechEE model to extract the event records from speech in one shot.
+                    Two SpeechEE architectures are overviewed in Figure 3.
+
+                </p>
+
+                <br>
+                <img class="columns is-centered has-text-centered" src="./static/images/architecture.png" alt="Teaser" width="100%"
+                         style="margin:0 auto">
+                    <br>
+                    <figcaption>
+                        <p style="text-align: center; color: #061E61;">
+                            <b>Figure 3:</b> The architecture of the pipeline and E2E SpeechEE model. 
+                        </p>
+                    </figcaption>
+
+                    <br>
+            
+
+        
+        <div class="columns is-centered">
+            <div class="column is-full-width">
+                <div class="content has-text-justified">
+                    <p>
+                        The pipeline approach divides the speech event extraction task into two subtasks: ASR (Automatic Speech Recognition) and textual event extraction. 
+                We suggested a direct and practical implementation by using the high-performance Whisper model as the ASR model to convert audio into corresponding transcripts, followed by the Text2Event method, which is a sequence-to-structure model for textual event extraction. 
+                These two well-performing existing models are combined in a two-stage pipeline model, as illustrated in Figure 3 (a).
+                <br>
+                <br>
+                The pipeline method inevitably suffers from issues like error propagation, so we innovatively proposed the E2E SpeechEE model, as illustrated in Figure 3 (b). 
+                Overall, the E2E SpeechEE model adopts an encoder-decoder architecture composed of three main components: a speech encoder, the Shrinking Unit module, and a retrieval-enhanced text decoder.
+                
+
+                <br>
+
+
+                <ul>
+                    <li>
+                        <b>Speech Encoder:</b> The audio encoder uses an architecture similar to Whisper, consisting of an acoustic feature extractor and a Transformer encoder. The input audio is processed through the feature extractor to obtain the log-Mel spectrogram, which is then passed through the Transformer encoder to generate audio representation vectors. Although the audio encoder, pre-trained through ASR, is capable of capturing audio features, it cannot directly model event-related features in the SpeechEE task. Therefore, we designed a contrastive learning strategy that divides samples into positive and negative pairs based on event types, making the audio representations of the same event type more similar and those of different event types more distinct. This strategy enhances representation learning and captures event-related semantic features more effectively.
+
+                    </li>
+                       
+                    <li>
+                        <b>Shrinking Unit:</b> Typically, the speech sequence is longer than the corresponding transcribed text sequence, and this redundancy is even more pronounced in event extraction tasks. To address the issue of sequence length mismatch between different modalities, we designed a length reduction unit placed between the encoder and decoder. This unit effectively mitigates the mismatch through projection and downsampling strategies.
+
+                    </li>
+
+                    <li>
+                        <b>Retrieval-Enhanced Text Decoder:</b>  After the length reduction process, a pre-trained text decoder is used to decode structured event records token by token. However, due to the ambiguity in speech, such as homophones or near-homophones, accurately decoding entity elements—especially rare or unusual names and places that the model encountered infrequently during training—can be challenging. To address this, we introduced a retrieval mechanism at the decoder end, incorporating external knowledge to build an entity dictionary. The retrieval probability is calculated using an attention mechanism, aiding the decoder in flexibly deciding whether to directly generate results or retrieve outputs from the entity dictionary.
+
+                    </li>
+
+                </ul>
+                    </p>
+
+                
+
+
+                </div>
+
+                
+
+            </div>
+        
+
+        
+
+
+        
+
+
+
+    
+    </div>           
+</section>
+
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+
+        <div class="columns is-centered has-text-centered">
+            <h2 class="title is-2">Demonstrations</h2>
+            <br>
+        </div>
+
+
+
+
+        <div class="columns is-centered">
+            <div class="column is-full-width">
+                <div class="content has-text-justified">
+                    <p>
+                        Finally, we provide a more intuitive understanding of the differences in performance between our pipeline and E2E systems on specific instances by offering some qualitative case studies. 
+                        We select two samples from the sentence-level  dataset, where our E2E model correctly produced outputs that matched the gold events for both instances. 
+                        However, the pipeline model fails in both cases, demonstrating typical errors, as shown in Figure 4.
+                
+                <br>
+        
+        
+                <ul>
+                    <li>
+                        For example-1, the pipeline system incorrectly recognized "<b>Saint Petersburg</b>" as "<b>St. Petersburg</b>" during the ASR stage (possibly due to biases in the training of the ASR model). 
+                This error propagates through the system, leading to incorrect identification of the argument in the subsequent EE step.
+                
+                    </li>
+                       
+                    <li>
+                        For example-2, similarly, the ASR mistakenly identifies the word "<b>Myopathy</b>" as "<b>Lalopathy</b>", which results in incorrect event argument outcomes. 
+Additionally, constrained by the two-step prediction paradigm, the pipeline system only identifies one argument, failing to recognize the second argument.
+
+                    </li>
+        
+                    
+        
+                </ul>
+                    </p>
+        
+                
+        
+        
+                </div>
+        
+            </div>
+        
+            </div>
+
+
+        <br>
+
+        <img class="columns is-centered has-text-centered" src="./static/images/case_study.png" alt="Teaser" width="80%"
+                         style="margin:0 auto">
+                    <br>
+                    <figcaption>
+                        <p style="text-align: center; color: #061E61;">
+                            <b>Figure 4:</b> Qualitative examples of pipeline method and E2E method. 
+                        </p>
+                    </figcaption>
+
+                    <br>
+
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
